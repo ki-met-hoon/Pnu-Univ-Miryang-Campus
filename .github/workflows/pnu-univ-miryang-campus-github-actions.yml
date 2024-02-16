@@ -1,0 +1,20 @@
+name: pnu-univ-miryang-campus-github-actions
+run-name: pnu-univ-miryang-campus-github-actions project 빌드 자동화
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  hello-spring-boot:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - run: chmod +x gradlew
+      - run: ./gradlew clean build test
