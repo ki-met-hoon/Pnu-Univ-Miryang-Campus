@@ -26,6 +26,8 @@ jobs:
       - run: ./gradlew clean build test
 
   deploy-to-aws-eb:
+    needs: pnu-univ-miryang-campus-build
+
     runs-on: ubuntu-latest
 
     steps:
