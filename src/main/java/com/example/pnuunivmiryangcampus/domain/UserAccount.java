@@ -16,6 +16,7 @@ public class UserAccount extends AuditingFields{
     @Column(nullable = false, length = 100)
     private String accountEmail;
 
+    @Column
     private String memo;
 
     protected UserAccount() {
