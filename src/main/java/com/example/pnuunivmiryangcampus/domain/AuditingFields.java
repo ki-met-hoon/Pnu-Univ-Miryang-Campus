@@ -38,11 +38,11 @@ public abstract class AuditingFields {
 
     @DateTimeFormat(iso = ISO.DATE_TIME)
     @LastModifiedDate
-    @Column(nullable = false)
+    @Column
     private LocalDateTime modifiedAt;
 
     @LastModifiedBy
-    @Column(nullable = false, length = 100)
+    @Column
     private String modifiedBy;
 
     @Column(nullable = false)
