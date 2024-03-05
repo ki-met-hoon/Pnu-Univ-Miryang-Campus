@@ -27,7 +27,7 @@ public class LibrarySeat extends AuditingFields{
         this.availability = availability;
     }
 
-    public LibrarySeat of(int seatNumber, String availability) {
+    public static LibrarySeat of(int seatNumber, String availability) {
         return new LibrarySeat(seatNumber, availability);
     }
 }

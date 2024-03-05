@@ -33,7 +33,7 @@ public class Reservation extends AuditingFields {
         this.endAt = endAt;
     }
 
-    public Reservation of(Long userAccountId, Long librarySeatId, LocalDateTime startAt, LocalDateTime endAt) {
+    public static Reservation of(Long userAccountId, Long librarySeatId, LocalDateTime startAt, LocalDateTime endAt) {
         return new Reservation(userAccountId, librarySeatId, startAt, endAt);
     }
 }
