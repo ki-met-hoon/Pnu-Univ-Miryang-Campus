@@ -24,7 +24,7 @@ public class Renewal extends AuditingFields {
         this.renewalCount = renewalCount;
     }
 
-    public Renewal of(Long reservationId, int renewalCount) {
+    public static Renewal of(Long reservationId, int renewalCount) {
         return new Renewal(reservationId, renewalCount);
     }
 }
