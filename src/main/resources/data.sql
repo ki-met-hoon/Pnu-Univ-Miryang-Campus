@@ -103,5 +103,8 @@ insert into library_seat(id, seat_number,availability, created_by, created_at, m
 insert into library_seat(id, seat_number,availability, created_by, created_at, modified_by, modified_at, is_deleted) values
     (52, 52, '사용가능', '김세훈', CURRENT_TIMESTAMP, NULL, NULL, false);
 
+insert into user_account(id, profile_nickname, account_email, memo, created_by, created_at, modified_by, modified_at, is_deleted) values
+    (1, '김세훈', 'shggm2000@naver.com', '관리자', '김세훈', CURRENT_TIMESTAMP, NULL, NULL, false);
+
 
 
