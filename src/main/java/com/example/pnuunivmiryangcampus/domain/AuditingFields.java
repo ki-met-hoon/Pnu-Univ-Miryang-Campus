@@ -33,7 +33,10 @@ public abstract class AuditingFields {
     private LocalDateTime createdAt;
 
     @CreatedBy
-    @Column(nullable = false, length = 100, updatable = false)
+    //원래는 Spring Security의 ContextHolder안에 들어있는 Principal의 name값으로 매핑
+    //지금은 Security를 구현하지 않았기 때문에 nullable = true로 변경
+    //Security 구현 후 nullable = false로 재변경
+    @Column(length = 100, updatable = false)
     private String createdBy;
 
     @DateTimeFormat(iso = ISO.DATE_TIME)
