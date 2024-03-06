@@ -1,0 +1,51 @@
+package com.example.pnuunivmiryangcampus.dto;
+
+import com.example.pnuunivmiryangcampus.domain.Reservation;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+public record ReservationDto(
+        Long id,
+        LocalDateTime createdAt,
+        String createdBy,
+        LocalDateTime modifiedAt,
+        String modifiedBy,
+        boolean isDeleted,
+        Long userAccountId,
+        Long librarySeatId,
+        LocalDateTime startAt,
+        LocalDateTime endAt
+) implements Serializable {
+
+    public static ReservationDto of(Long id, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy, boolean isDeleted, Long userAccountId, Long librarySeatId, LocalDateTime startAt, LocalDateTime endAt) {
+        return new ReservationDto(id, createdAt, createdBy, modifiedAt, modifiedBy, isDeleted, userAccountId, librarySeatId, startAt, endAt);
+    }
+
+    public static ReservationDto of(Long userAccountId, Long librarySeatId, LocalDateTime startAt, LocalDateTime endAt) {
+        return new ReservationDto(null, null, null, null, null, false, userAccountId, librarySeatId, startAt, endAt);
+    }
+
+    public static ReservationDto from(Reservation entity) {
+        return new ReservationDto(
+                entity.getId(),
+                entity.getCreatedAt(),
+                entity.getCreatedBy(),
+                entity.getModifiedAt(),
+                entity.getModifiedBy(),
+                entity.isDeleted(),
+                entity.getUserAccountId(),
+                entity.getLibrarySeatId(),
+                entity.getStartAt(),
+                entity.getEndAt()
+        );
+    }
+
+    public Reservation toEntity() {
+        return Reservation.of(
+                userAccountId,
+                librarySeatId,
+                startAt,
+                endAt
+        );
+    }
+}
