@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.ToString;
@@ -50,4 +51,9 @@ public abstract class AuditingFields {
 
     @Column(nullable = false)
     private boolean isDeleted = false;
+
+    @PrePersist
+    public void prePersist() {
+        this.modifiedAt = null;
+    }
 }
