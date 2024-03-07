@@ -25,8 +25,7 @@ public class ReservationController {
 
         //kakao 로그인 서비스 구현 후 1L을 security에서 받아온 ID 값으로 변경해야함
         ReservationDto reservationDto = ReservationDto.of(1L, seatId, startAt, endAt);
-        Long reservationId = reservationService.saveReservationAndReturnId(reservationDto);
 
-        return ResponseEntity.created(URI.create("/library/reservation/" + reservationId)).build();
+        return ResponseEntity.created(URI.create("/library/reservation")).build();
     }
 }
