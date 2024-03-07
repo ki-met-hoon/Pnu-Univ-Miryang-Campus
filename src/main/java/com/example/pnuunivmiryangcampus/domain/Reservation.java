@@ -23,17 +23,21 @@ public class Reservation extends AuditingFields {
     @Column(nullable = false)
     private LocalDateTime endAt;
 
+    @Column(nullable = false)
+    private int renewalCount;
+
     protected Reservation() {
     }
 
-    private Reservation(Long userAccountId, Long librarySeatId, LocalDateTime startAt, LocalDateTime endAt) {
+    private Reservation(Long userAccountId, Long librarySeatId, LocalDateTime startAt, LocalDateTime endAt, int renewalCount) {
         this.userAccountId = userAccountId;
         this.librarySeatId = librarySeatId;
         this.startAt = startAt;
         this.endAt = endAt;
+        this.renewalCount = renewalCount;
     }
 
-    public static Reservation of(Long userAccountId, Long librarySeatId, LocalDateTime startAt, LocalDateTime endAt) {
-        return new Reservation(userAccountId, librarySeatId, startAt, endAt);
+    public static Reservation of(Long userAccountId, Long librarySeatId, LocalDateTime startAt, LocalDateTime endAt, int renewalCount) {
+        return new Reservation(userAccountId, librarySeatId, startAt, endAt, renewalCount);
     }
 }
