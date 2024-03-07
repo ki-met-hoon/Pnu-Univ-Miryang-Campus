@@ -1,6 +1,5 @@
 package com.example.pnuunivmiryangcampus.service;
 
-import com.example.pnuunivmiryangcampus.domain.LibrarySeat;
 import com.example.pnuunivmiryangcampus.dto.LibrarySeatDto;
 import com.example.pnuunivmiryangcampus.repository.LibrarySeatRepository;
 import java.util.List;
@@ -16,16 +15,10 @@ public class LibrarySeatService {
     private final LibrarySeatRepository librarySeatRepository;
 
     @Transactional(readOnly = true)
-    public List<LibrarySeatDto> getUnavailableLibrarySeat() {
-        return librarySeatRepository.findLibrarySeatsByUnavailability()
+    public List<LibrarySeatDto> getAvailableLibrarySeat() {
+        return librarySeatRepository.findLibrarySeatsByAvailability()
                 .stream()
                 .map(LibrarySeatDto::from)
                 .toList();
-    }
-
-    @Transactional(readOnly = true)
-    public Long getLibrarySeatId(int seatNumber) {
-        //isDeleted가 true인 값은 제외하는 로직에 대해 생각
-        return librarySeatRepository.findBySeatNumber(seatNumber).getId();
     }
 }
