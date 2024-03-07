@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 public interface LibrarySeatRepository extends JpaRepository<LibrarySeat, Long> {
 
     // Optional Type 고려
-    @Query("select ls from LibrarySeat ls where ls.availability<> '사용가능'")
-    List<LibrarySeat> findLibrarySeatsByUnavailability();
+    @Query("select ls from LibrarySeat ls where ls.availability = '사용가능'")
+    List<LibrarySeat> findLibrarySeatsByAvailability();
 
     LibrarySeat findBySeatNumber(int seatNumber);
 }

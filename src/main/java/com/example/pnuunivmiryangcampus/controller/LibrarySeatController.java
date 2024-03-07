@@ -19,11 +19,11 @@ public class LibrarySeatController {
     @GetMapping("/seats")
     public ResponseEntity<List<LibrarySeatResponse>> librarySeats() {
 
-        List<LibrarySeatResponse> unavailableSeats = librarySeatService.getUnavailableLibrarySeat()
+        List<LibrarySeatResponse> availableSeats = librarySeatService.getAvailableLibrarySeat()
                 .stream()
                 .map(LibrarySeatResponse::from)
                 .toList();
 
-        return ResponseEntity.ok(unavailableSeats);
+        return ResponseEntity.ok(availableSeats);
     }
 }
