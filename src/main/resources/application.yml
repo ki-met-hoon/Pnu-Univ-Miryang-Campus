@@ -25,7 +25,21 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        format_sql: true
-        default_batch_fetch_size: 100
+        format-sql: true
+        default-batch-fetch-size: 100
   h2.console.enabled: true
   sql.init.mode: always
+
+feign:
+  client:
+    kakao:
+      name: kakaoLogin
+      base-url: https://kauth.kakao.com/oauth/
+      auth-uri: authorize
+      token-uri: token
+      rest-api-key: b4610d35ecbcd2e97cadaac137434c74
+      redirect-uri: http://localhost:5000/auth/callback
+      grant-type: authorization_code
+
+
+
