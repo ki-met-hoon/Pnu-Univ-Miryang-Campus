@@ -29,17 +29,25 @@ spring:
         default-batch-fetch-size: 100
   h2.console.enabled: true
   sql.init.mode: always
+  data:
+    redis:
+      port: 6379
+      host: localhost
 
 feign:
   client:
     kakao:
       name: kakaoLogin
-      base-url: https://kauth.kakao.com/oauth/
-      auth-url: https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=b4610d35ecbcd2e97cadaac137434c74&redirect_uri=http://pnu-univ-miryang-campus-env.ap-northeast-2.elasticbeanstalk.com/auth/kakao/callback
-      token-uri: token
+      base-url: https://kauth.kakao.com
+      auth-url: https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=b4610d35ecbcd2e97cadaac137434c74&redirect_uri=http://localhost:5000/auth/kakao/callback
+      token-uri: /oauth/token
+      oicd-open-key-uri: /.well-known/jwks.json
       rest-api-key: b4610d35ecbcd2e97cadaac137434c74
-      redirect-uri: http://pnu-univ-miryang-campus-env.ap-northeast-2.elasticbeanstalk.com/auth/kakao/callback
+      redirect-uri: http://localhost:5000/auth/kakao/callback
       grant-type: authorization_code
+      oicd-base-url: https://kapi.kakao.com
+      oicd-userinfo-uri: /v1/oidc/userinfo
+
 
 
 

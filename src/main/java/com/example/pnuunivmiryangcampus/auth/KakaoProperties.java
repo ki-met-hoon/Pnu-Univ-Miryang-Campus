@@ -13,6 +13,7 @@ public class KakaoProperties {
     private String baseUrl;
     private String authUrl;
     private String tokenUri;
+    private String oicdOpenKeyUri;
     private String restApiKey;
     private String redirectUri;
     private String grantType;

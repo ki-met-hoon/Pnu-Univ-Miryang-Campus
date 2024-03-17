@@ -25,6 +25,10 @@ public class LoginController {
 
     @GetMapping("/kakao/callback")
     public ResponseEntity<KakaoTokenDto> getKakaoToken(@RequestParam String code) {
-        return ResponseEntity.ok(loginService.getKakaoToken(code));
+
+        KakaoTokenDto kakaoTokenDto = loginService.getKakaoToken(code);
+        loginService.isUserRegistered(kakaoTokenDto);
+
+        return ResponseEntity.ok(kakaoTokenDto);
     }
 }
