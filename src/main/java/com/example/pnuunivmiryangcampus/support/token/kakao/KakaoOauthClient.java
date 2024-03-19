@@ -1,7 +1,7 @@
-package com.example.pnuunivmiryangcampus.auth.kakao;
+package com.example.pnuunivmiryangcampus.support.token.kakao;
 
 import com.example.pnuunivmiryangcampus.auth.dto.kakao.KakaoTokenDto;
-import com.example.pnuunivmiryangcampus.auth.dto.oidc.OidcPublicKeysResponse;
+import com.example.pnuunivmiryangcampus.auth.OIDCPublicKeysResponse;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,5 +21,5 @@ public interface KakaoOauthClient {
 
     @Cacheable(cacheNames = "KakaoOICD", cacheManager = "oidcCacheManager")
     @GetMapping("${feign.client.kakao.oicd-open-key-uri}")
-    OidcPublicKeysResponse getKakaoOIDCOpenKeys();
+    OIDCPublicKeysResponse getKakaoOIDCOpenKeys();
 }

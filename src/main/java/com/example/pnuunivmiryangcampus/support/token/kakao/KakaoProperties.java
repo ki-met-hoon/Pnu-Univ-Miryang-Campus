@@ -1,4 +1,4 @@
-package com.example.pnuunivmiryangcampus.auth.kakao;
+package com.example.pnuunivmiryangcampus.support.token.kakao;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

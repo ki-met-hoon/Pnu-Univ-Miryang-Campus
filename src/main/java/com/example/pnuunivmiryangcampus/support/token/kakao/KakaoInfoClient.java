@@ -1,4 +1,4 @@
-package com.example.pnuunivmiryangcampus.auth.kakao;
+package com.example.pnuunivmiryangcampus.support.token.kakao;
 
 import com.example.pnuunivmiryangcampus.auth.dto.kakao.KakaoUserInfoDto;
 import org.springframework.cloud.openfeign.FeignClient;
