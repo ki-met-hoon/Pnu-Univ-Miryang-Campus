@@ -1,10 +1,10 @@
 package com.example.pnuunivmiryangcampus.auth.service;
 
-import com.example.pnuunivmiryangcampus.auth.kakao.KakaoInfoClient;
+import com.example.pnuunivmiryangcampus.support.token.kakao.KakaoInfoClient;
 import com.example.pnuunivmiryangcampus.auth.dto.kakao.KakaoUserInfoDto;
-import com.example.pnuunivmiryangcampus.auth.kakao.KakaoOauthClient;
-import com.example.pnuunivmiryangcampus.auth.kakao.KakaoProperties;
-import com.example.pnuunivmiryangcampus.auth.dto.oidc.OidcDecodePayload;
+import com.example.pnuunivmiryangcampus.support.token.kakao.KakaoOauthClient;
+import com.example.pnuunivmiryangcampus.support.token.kakao.KakaoProperties;
+import com.example.pnuunivmiryangcampus.auth.OIDCDecodePayload;
 import com.example.pnuunivmiryangcampus.support.token.OauthOIDCHelper;
 import com.example.pnuunivmiryangcampus.userAccount.UserAccount;
 import com.example.pnuunivmiryangcampus.auth.dto.kakao.KakaoTokenDto;
@@ -40,7 +40,7 @@ public class AuthService {
 
     public void isUserRegistered(KakaoTokenDto kakaoTokenDto) {
 
-        OidcDecodePayload oidcDecodePayload = oauthOIDCHelper.getKakaoOIDCDecodePayload(kakaoTokenDto.idToken());
+        OIDCDecodePayload oidcDecodePayload = oauthOIDCHelper.getKakaoOIDCDecodePayload(kakaoTokenDto.idToken());
         Optional<UserAccount> userAccount = userAccountRepository.findBySub(oidcDecodePayload.sub());
 
         if (userAccount.isEmpty()) {

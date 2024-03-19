@@ -1,6 +1,6 @@
 package com.example.pnuunivmiryangcampus.auth.controller;
 
-import com.example.pnuunivmiryangcampus.auth.kakao.KakaoProperties;
+import com.example.pnuunivmiryangcampus.support.token.kakao.KakaoProperties;
 import com.example.pnuunivmiryangcampus.auth.dto.kakao.KakaoTokenDto;
 import com.example.pnuunivmiryangcampus.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;

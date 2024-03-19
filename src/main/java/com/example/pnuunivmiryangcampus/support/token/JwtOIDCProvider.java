@@ -1,6 +1,6 @@
 package com.example.pnuunivmiryangcampus.support.token;
 
-import com.example.pnuunivmiryangcampus.auth.dto.oidc.OidcDecodePayload;
+import com.example.pnuunivmiryangcampus.auth.OIDCDecodePayload;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
@@ -55,11 +55,11 @@ public class JwtOIDCProvider {
         }
     }
 
-    public OidcDecodePayload getOIDCTokenBody(String token, String modulus, String exponent, String iss, String aud) {
+    public OIDCDecodePayload getOIDCTokenBody(String token, String modulus, String exponent, String iss, String aud) {
 
         Claims payload = getOIDCTokenJws(token, modulus, exponent, iss, aud).getPayload();
 
-        return new OidcDecodePayload(
+        return new OIDCDecodePayload(
                 payload.getIssuer(),
                 payload.getAudience().toString(),
                 payload.getSubject(),
