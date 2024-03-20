@@ -1,6 +1,7 @@
 package com.example.pnuunivmiryangcampus.support.token;
 
 import com.example.pnuunivmiryangcampus.auth.OIDCDecodePayload;
+import com.example.pnuunivmiryangcampus.auth.OIDCPublicKeyDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
@@ -22,27 +23,22 @@ import org.springframework.stereotype.Component;
 public class JwtOIDCProvider {
 
     public String getKidFromTokenHeader(String token) {
-
         String KID = "kid";
-        String[] splitToken = token.split("\\.");
-        String header = splitToken[0];
-
-        byte[] decodeJson = Base64.getDecoder().decode(header);
-        String decodeHeader = new String(decodeJson);
+        String encodedHeader = getEncodedHeader(token);
+        String decodedHeader = getDecodedHeader(encodedHeader);
 
         try {
-            JSONObject jsonObject = new JSONObject(decodeHeader);
+            JSONObject jsonObject = new JSONObject(decodedHeader);
             return jsonObject.get(KID).toString();
         } catch (JSONException e) {
             return e.toString();
         }
     }
 
-    public Jws<Claims> getOIDCTokenJws(String token, String modulus, String exponent, String iss, String aud) {
-
+    public Jws<Claims> getOIDCTokenJws(String token, OIDCPublicKeyDto oidcPublicKeyDto, String iss, String aud) {
         try {
             return Jwts.parser()
-                    .verifyWith(getRSAPublicKey(modulus, exponent))
+                    .verifyWith(getRSAPublicKey(oidcPublicKeyDto.n(), oidcPublicKeyDto.e()))
                     .requireAudience(aud)
                     .requireIssuer(iss)
                     .build()
@@ -55,9 +51,8 @@ public class JwtOIDCProvider {
         }
     }
 
-    public OIDCDecodePayload getOIDCTokenBody(String token, String modulus, String exponent, String iss, String aud) {
-
-        Claims payload = getOIDCTokenJws(token, modulus, exponent, iss, aud).getPayload();
+    public OIDCDecodePayload getOIDCTokenBody(String token, OIDCPublicKeyDto oidcPublicKeyDto, String iss, String aud) {
+        Claims payload = getOIDCTokenJws(token, oidcPublicKeyDto, iss, aud).getPayload();
 
         return new OIDCDecodePayload(
                 payload.getIssuer(),
@@ -66,8 +61,17 @@ public class JwtOIDCProvider {
                 payload.get("email", String.class));
     }
 
-    private PublicKey getRSAPublicKey(String modulus, String exponent) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    private static String getDecodedHeader(String encodedHeader) {
+        byte[] decodedHeaderBytes = Base64.getDecoder().decode(encodedHeader);
+        return new String(decodedHeaderBytes);
+    }
 
+    private static String getEncodedHeader(String token) {
+        String[] splitToken = token.split("\\.");
+        return splitToken[0];
+    }
+
+    private PublicKey getRSAPublicKey(String modulus, String exponent) throws NoSuchAlgorithmException, InvalidKeySpecException {
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         byte[] decodeN = Base64.getUrlDecoder().decode(modulus);
         byte[] decodeE = Base64.getUrlDecoder().decode(exponent);

@@ -24,7 +24,7 @@ public class OauthOIDCHelper {
                         .findFirst()
                         .orElseThrow();
 
-        return jwtOIDCProvider.getOIDCTokenBody(token, oidcPublicKeyDto.n(), oidcPublicKeyDto.e(), iss, aud);
+        return jwtOIDCProvider.getOIDCTokenBody(token, oidcPublicKeyDto, iss, aud);
     }
 
     public OIDCDecodePayload getKakaoOIDCDecodePayload(String token) {
@@ -34,6 +34,7 @@ public class OauthOIDCHelper {
                 token,
                 kakaoProperties.getBaseUrl(),
                 kakaoProperties.getRestApiKey(),
-                oidcPublicKeysResponse);
+                oidcPublicKeysResponse
+        );
     }
 }
