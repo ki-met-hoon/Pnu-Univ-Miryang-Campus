@@ -2,16 +2,14 @@ package com.example.pnuunivmiryangcampus.reservation.controller;
 
 import com.example.pnuunivmiryangcampus.config.security.CustomUserDetails;
 import com.example.pnuunivmiryangcampus.reservation.dto.ReservationDto;
+import com.example.pnuunivmiryangcampus.reservation.dto.response.ReservationResponse;
 import com.example.pnuunivmiryangcampus.reservation.service.ReservationService;
 import com.example.pnuunivmiryangcampus.userAccount.UserAccount;
 import com.example.pnuunivmiryangcampus.userAccount.repository.UserAccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.time.LocalDateTime;
@@ -33,6 +31,18 @@ public class ReservationController {
         ReservationDto reservationDto = ReservationDto.of(findUser.getId(), seatId, startAt, endAt);
         reservationService.saveReservation(reservationDto);
 
-        return ResponseEntity.created(URI.create("/library/reservation")).build();
+        return ResponseEntity.created(URI.create("/library/reservation/" + findUser.getId())).build();
+    }
+
+    @GetMapping
+    public ResponseEntity<ReservationResponse> getReservation(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        UserAccount findUser = userAccountRepository.findBySub(customUserDetails.getPassword()).orElseThrow();
+        ReservationResponse reservationResponse = reservationService.getReservationByUserId(findUser.getId());
+
+        if (reservationResponse == null) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(reservationService.getReservationByUserId(findUser.getId()));
     }
 }
