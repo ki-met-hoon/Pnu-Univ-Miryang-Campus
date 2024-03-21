@@ -52,8 +52,10 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests
+                                .requestMatchers("/library/reservation/**").hasRole("USER")
+                                .requestMatchers("/h2-console/**").permitAll()
                                 .requestMatchers(swaggerPermitUrls).permitAll()
-                                .requestMatchers("/library/**").permitAll()
+                                .requestMatchers("/library/seats").permitAll()
                                 .requestMatchers("/auth/**").permitAll());
 
         return http.build();

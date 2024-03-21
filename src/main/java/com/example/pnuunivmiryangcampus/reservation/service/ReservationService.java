@@ -16,9 +16,4 @@ public class ReservationService {
     public void saveReservation(ReservationDto dto) {
         reservationRepository.save(dto.toEntity());
     }
-
-    //추후에 findById method에 의해서 삭제될 수 있음, 상황을 고려
-    public Long saveReservationAndReturnId(ReservationDto dto) {
-        return reservationRepository.save(dto.toEntity()).getId();
-    }
 }
