@@ -44,7 +44,14 @@ public class ReservationService {
         Reservation reservation = reservationRepository.findById(reservationId).orElseThrow();
 
         reservation.update(reservation.getEndAt().plusHours(3), reservation.getRenewalCount() + 1);
+        checkRenewalCount(reservation);
 
         return ReservationRenewalResponse.from(reservation);
+    }
+
+    private void checkRenewalCount(Reservation reservation) {
+        if (reservation.getRenewalCount() > 4) {
+            throw new ReservationLimitExceededException();
+        }
     }
 }
