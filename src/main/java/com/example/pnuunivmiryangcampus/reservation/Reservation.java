@@ -41,4 +41,9 @@ public class Reservation extends AuditingFields {
     public static Reservation of(Long userAccountId, Long librarySeatId, LocalDateTime startAt, LocalDateTime endAt, int renewalCount) {
         return new Reservation(userAccountId, librarySeatId, startAt, endAt, renewalCount);
     }
+
+    public void update(LocalDateTime endAt, int renewalCount) {
+        this.endAt = endAt;
+        this.renewalCount = renewalCount;
+    }
 }

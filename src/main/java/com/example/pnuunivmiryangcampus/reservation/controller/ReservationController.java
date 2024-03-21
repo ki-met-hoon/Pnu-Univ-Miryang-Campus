@@ -2,6 +2,7 @@ package com.example.pnuunivmiryangcampus.reservation.controller;
 
 import com.example.pnuunivmiryangcampus.config.security.CustomUserDetails;
 import com.example.pnuunivmiryangcampus.reservation.dto.ReservationDto;
+import com.example.pnuunivmiryangcampus.reservation.dto.response.ReservationRenewalResponse;
 import com.example.pnuunivmiryangcampus.reservation.dto.response.ReservationResponse;
 import com.example.pnuunivmiryangcampus.reservation.service.ReservationService;
 import com.example.pnuunivmiryangcampus.userAccount.UserAccount;
@@ -44,5 +45,10 @@ public class ReservationController {
         }
 
         return ResponseEntity.ok(reservationService.getReservationByUserId(findUser.getId()));
+    }
+
+    @PostMapping("/{reservationId}/renewal")
+    public ResponseEntity<ReservationRenewalResponse> reservationRenewal(@PathVariable Long reservationId) {
+        return ResponseEntity.ok(reservationService.updateReservationRenewalCount(reservationId));
     }
 }

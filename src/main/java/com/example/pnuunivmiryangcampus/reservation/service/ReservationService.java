@@ -3,7 +3,9 @@ package com.example.pnuunivmiryangcampus.reservation.service;
 import com.example.pnuunivmiryangcampus.librarySeat.repository.LibrarySeatRepository;
 import com.example.pnuunivmiryangcampus.reservation.Reservation;
 import com.example.pnuunivmiryangcampus.reservation.dto.ReservationDto;
+import com.example.pnuunivmiryangcampus.reservation.dto.response.ReservationRenewalResponse;
 import com.example.pnuunivmiryangcampus.reservation.dto.response.ReservationResponse;
+import com.example.pnuunivmiryangcampus.reservation.exception.ReservationLimitExceededException;
 import com.example.pnuunivmiryangcampus.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,5 +37,21 @@ public class ReservationService {
         }
 
         return null;
+    }
+
+    @Transactional
+    public ReservationRenewalResponse updateReservationRenewalCount(Long reservationId) {
+        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow();
+
+        reservation.update(reservation.getEndAt().plusHours(3), reservation.getRenewalCount() + 1);
+        checkRenewalCount(reservation);
+
+        return ReservationRenewalResponse.from(reservation);
+    }
+
+    private void checkRenewalCount(Reservation reservation) {
+        if (reservation.getRenewalCount() > 4) {
+            throw new ReservationLimitExceededException();
+        }
     }
 }
