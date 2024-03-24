@@ -6,9 +6,12 @@ import jakarta.persistence.Entity;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.ToString;
+import org.hibernate.annotations.SQLDelete;
+
 
 @Getter
 @ToString(callSuper = true)
+@SQLDelete(sql = "update reservation set is_deleted = true, modified_at = current_time, modified_by = user_account_id where id  = ?")
 @Entity
 public class Reservation extends AuditingFields {
 
