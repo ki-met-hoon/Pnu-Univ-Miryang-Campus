@@ -54,5 +54,10 @@ public class ReservationService {
             throw new ReservationLimitExceededException();
         }
     }
+
+    @Transactional
+    public void deleteReservation(Long reservationId) {
+        reservationRepository.deleteById(reservationId);
+    }
 }
 
