@@ -7,20 +7,20 @@ import java.time.LocalDateTime;
 
 public record ReservationResponse(
         Long ReservationId,
-        Long seatNumber,
+        Long seatId,
         LocalDateTime startAt,
         LocalDateTime endAt,
         int renewalCount
 ) implements Serializable {
 
-    public static ReservationResponse of(Long ReservationId, Long seatNumber, LocalDateTime startAt, LocalDateTime endAt, int renewalCount) {
-        return new ReservationResponse(ReservationId, seatNumber, startAt, endAt, renewalCount);
+    public static ReservationResponse of(Long ReservationId, Long seatId, LocalDateTime startAt, LocalDateTime endAt, int renewalCount) {
+        return new ReservationResponse(ReservationId, seatId, startAt, endAt, renewalCount);
     }
 
-    public static ReservationResponse from(Reservation entity, Long seatNumber) {
+    public static ReservationResponse from(Reservation entity, Long seatId) {
         return new ReservationResponse(
                 entity.getId(),
-                seatNumber,
+                seatId,
                 entity.getStartAt(),
                 entity.getEndAt(),
                 entity.getRenewalCount()
