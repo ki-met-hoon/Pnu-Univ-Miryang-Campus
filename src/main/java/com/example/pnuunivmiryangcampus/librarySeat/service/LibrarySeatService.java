@@ -17,6 +17,7 @@ public class LibrarySeatService {
     @Transactional(readOnly = true)
     public List<LibrarySeatDto> getAvailableLibrarySeat() {
         return librarySeatRepository.findLibrarySeatsByAvailability()
+                .orElseThrow()
                 .stream()
                 .map(LibrarySeatDto::from)
                 .toList();
