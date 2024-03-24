@@ -31,9 +31,9 @@ public class ReservationService {
         Optional<Reservation> reservation = reservationRepository.findByUserAccountId(userId);
 
         if (reservation.isPresent()) {
-            Long reservedSeatNumber = librarySeatRepository.findById(reservation.get().getLibrarySeatId()).orElseThrow().getId();
+            Long reservedSeatId = librarySeatRepository.findById(reservation.get().getLibrarySeatId()).orElseThrow().getId();
 
-            return ReservationResponse.from(reservation.get(), reservedSeatNumber);
+            return ReservationResponse.from(reservation.get(), reservedSeatId);
         }
 
         return null;
@@ -54,4 +54,10 @@ public class ReservationService {
             throw new ReservationLimitExceededException();
         }
     }
+
+    @Transactional
+    public void deleteReservation(Long reservationId) {
+        reservationRepository.deleteById(reservationId);
+    }
 }
+

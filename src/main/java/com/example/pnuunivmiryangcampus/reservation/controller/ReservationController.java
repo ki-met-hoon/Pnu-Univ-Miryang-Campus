@@ -32,7 +32,7 @@ public class ReservationController {
         ReservationDto reservationDto = ReservationDto.of(findUser.getId(), seatId, startAt, endAt);
         reservationService.saveReservation(reservationDto);
 
-        return ResponseEntity.created(URI.create("/library/reservation/" + findUser.getId())).build();
+        return ResponseEntity.created(URI.create("/library/reservation/")).build();
     }
 
     @GetMapping
@@ -50,5 +50,12 @@ public class ReservationController {
     @PostMapping("/{reservationId}/renewal")
     public ResponseEntity<ReservationRenewalResponse> reservationRenewal(@PathVariable Long reservationId) {
         return ResponseEntity.ok(reservationService.updateReservationRenewalCount(reservationId));
+    }
+
+    @DeleteMapping("/{reservationId}")
+    public ResponseEntity<Void> reservation(@PathVariable Long reservationId) {
+        reservationService.deleteReservation(reservationId);
+
+        return ResponseEntity.noContent().build();
     }
 }
