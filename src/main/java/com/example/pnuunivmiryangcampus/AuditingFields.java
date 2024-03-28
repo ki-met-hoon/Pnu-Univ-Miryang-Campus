@@ -55,5 +55,6 @@ public abstract class AuditingFields {
     @PrePersist
     public void prePersist() {
         this.modifiedAt = null;
+        this.modifiedBy = null;
     }
 }
