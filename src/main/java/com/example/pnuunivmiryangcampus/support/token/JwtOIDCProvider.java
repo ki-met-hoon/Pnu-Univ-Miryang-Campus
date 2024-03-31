@@ -2,6 +2,9 @@ package com.example.pnuunivmiryangcampus.support.token;
 
 import com.example.pnuunivmiryangcampus.auth.OIDCDecodePayload;
 import com.example.pnuunivmiryangcampus.auth.OIDCPublicKeyDto;
+import com.example.pnuunivmiryangcampus.support.token.exception.ExpiredTokenException;
+import com.example.pnuunivmiryangcampus.support.token.exception.InvalidTokenException;
+import com.example.pnuunivmiryangcampus.support.token.exception.JsonParsingException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
@@ -31,7 +34,7 @@ public class JwtOIDCProvider {
             JSONObject jsonObject = new JSONObject(decodedHeader);
             return jsonObject.get(KID).toString();
         } catch (JSONException e) {
-            return e.toString();
+            throw new JsonParsingException(e.getMessage());
         }
     }
 
@@ -44,10 +47,10 @@ public class JwtOIDCProvider {
                     .build()
                     .parseSignedClaims(token);
         } catch (ExpiredJwtException e) {
-            throw new Exception500(e.getMessage());
+            throw new ExpiredTokenException();
         } catch (Exception e) {
             log.error(e.toString());
-            throw new Exception500(e.getMessage());
+            throw new InvalidTokenException();
         }
     }
 
