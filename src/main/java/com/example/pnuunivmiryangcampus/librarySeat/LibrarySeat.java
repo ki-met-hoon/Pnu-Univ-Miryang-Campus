@@ -31,4 +31,12 @@ public class LibrarySeat extends AuditingFields {
     public static LibrarySeat of(int seatNumber, String availability) {
         return new LibrarySeat(seatNumber, availability);
     }
+
+    public void updateUnavailable() {
+        this.availability = "사용중";
+    }
+
+    public void updateAvailable() {
+        this.availability = "사용가능";
+    }
 }
