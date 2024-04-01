@@ -2,17 +2,18 @@ package com.example.pnuunivmiryangcampus.librarySeat.controller;
 
 import com.example.pnuunivmiryangcampus.librarySeat.dto.response.LibrarySeatResponse;
 import com.example.pnuunivmiryangcampus.librarySeat.service.LibrarySeatService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RequestMapping("/library")
 @RestController
-public class LibrarySeatController {
+public class LibrarySeatController implements LibrarySeatControllerDocs{
 
     private final LibrarySeatService librarySeatService;
 
