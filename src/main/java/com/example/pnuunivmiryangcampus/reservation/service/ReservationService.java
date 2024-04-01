@@ -31,9 +31,9 @@ public class ReservationService {
     public void saveReservation(ReservationDto dto) {
         checkDuplicateReservation(dto.userAccountId());
 
-        reservationRepository.save(dto.toEntity());
         LibrarySeat librarySeat = librarySeatRepository.findById(dto.librarySeatId()).orElseThrow(LibrarySeatNotFoundException::new);
         librarySeat.updateUnavailable();
+        reservationRepository.save(dto.toEntity());
     }
 
     private void checkDuplicateReservation(Long userId) {
