@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @RequestMapping("/library/reservation")
 @RestController
-public class ReservationController {
+public class ReservationController implements ReservationControllerDocs{
 
     private final ReservationService reservationService;
     private final UserAccountRepository userAccountRepository;
